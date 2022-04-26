@@ -77,7 +77,7 @@ void doMove(int x, int y)
 void draw()
 {
   background(255);
-  drawGrid(0);
+  drawGrid(300);
 }
 
 void mousePressed()
