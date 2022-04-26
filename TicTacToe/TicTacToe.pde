@@ -65,10 +65,19 @@ void drawGrid(int size) // Set size to width for fullscreen
   }
 }
 
+void doMove(int x, int y)
+{
+  if (grid[x][y] == 0)
+  {
+    grid[x][y] = team;
+    team = (team == 1 ? 2 : 1);
+  }
+}
+
 void draw()
 {
   background(255);
-  drawGrid(300);
+  drawGrid(0);
 }
 
 void mousePressed()
@@ -79,11 +88,7 @@ void mousePressed()
   {
     if (mouseButton == LEFT)
     {
-      if (grid[mouseGridX][mouseGridY] == 0)
-      {
-        grid[mouseGridX][mouseGridY] = team;
-        team = (team == 1 ? 2 : 1);
-      }
+      doMove(mouseGridX, mouseGridY);
     }
   }
 }
