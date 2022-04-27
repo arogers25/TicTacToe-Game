@@ -152,9 +152,14 @@ void doMove(int x, int y)
 
 void draw()
 {
-  println(getDiagWinners());
+  //println(getDiagWinners());
   background(255);
   drawGrid(300);
+  if (winner > 0)
+  {
+    if (winner == 3) println("Tie");
+    println((winner == 1 ? "X" : "O") + " Wins");
+  }
 }
 
 void mousePressed()
