@@ -5,7 +5,9 @@ int gridPosX = 100, gridPosY = 100; // Set both to 0 for fullscreen
 
 int grid[][]; // The array of the game pieces
 int team = 1; // X is 1, O is 2
+int winner = 0; // The side that has won the game, 3 is tie
 boolean multiPlayer = true;
+int movesPlayed = 0;
 
 void setup()
 {
@@ -65,15 +67,6 @@ void drawGrid(int size) // Set size to width for fullscreen
   }
 }
 
-void doMove(int x, int y)
-{
-  if (grid[x][y] == 0)
-  {
-    grid[x][y] = team;
-    team = (team == 1 ? 2 : 1);
-  }
-}
-
 int getRowWinner()
 {
   for (int y = 0; y < gridAmount; y++)
@@ -90,21 +83,84 @@ int getRowWinner()
     }
     if (winnerX != -1) // If this row has no empty pieces or only has 1 team with all the moves on it
     {
-      return grid[0][y];
+      return grid[0][y]; // Every piece on the row is the same if it is won so it doesn't matter what X the grid is returned at
     }
   }
   return 0;
 }
 
+int getColumnWinner()
+{
+  for (int x = 0; x < gridAmount; x++)
+  {
+    int winnerY = -1;
+    for (int y = 0; y < gridAmount; y++)
+    {
+      if (grid[x][0] != grid[x][y] || grid[x][y] == 0)
+      {
+        winnerY = -1;
+        break;
+      }
+      winnerY = y;
+    }
+    if (winnerY != -1)
+    {
+      return grid[x][0];
+    }
+  }
+  return 0;
+}
+
+int getDiagWinners()
+{
+  boolean diagWon = true;
+  boolean reverseDiagWon = true;
+  for (int i = 0; i < gridAmount; i++)
+  {
+    if (grid[0][0] != grid[i][i]) 
+    {
+      diagWon = false;
+    }
+    if (grid[0][gridAmount - 1] != grid[i][(gridAmount - 1) - i])
+    {
+      reverseDiagWon = false;
+    }
+  }
+  if (diagWon) return grid[0][0];
+  if (reverseDiagWon) return grid[0][gridAmount - 1];
+  return 0; // Return 0 if there are no winners on the diagonal or reverse diagonal
+}
+
+void getWinner()
+{
+  if (getRowWinner() > 0) winner = getRowWinner();
+  if (getColumnWinner() > 0) winner = getColumnWinner();
+  if (getDiagWinners() > 0) winner = getDiagWinners();
+  if (movesPlayed == gridAmount * gridAmount) winner = 3; // If all of the moves have been played and there is no winner it is a tie
+}
+
+void doMove(int x, int y)
+{
+  if (grid[x][y] == 0)
+  {
+    movesPlayed++;
+    grid[x][y] = team;
+    getWinner();
+    team = (team == 1 ? 2 : 1);
+  }
+}
+
 void draw()
 {
-  println(getRowWinner());
+  println(getDiagWinners());
   background(255);
   drawGrid(300);
 }
 
 void mousePressed()
 {
+  if (winner > 0) return; // Only allow input if the game does not have a winner
+  
   int mouseGridX = (mouseX - gridPosX) / gridSize; // The position of the mouse on the grid
   int mouseGridY = (mouseY - gridPosY) / gridSize;
   if (mouseGridX >= 0 && mouseGridX < gridAmount && mouseGridY >= 0 && mouseGridY < gridAmount) // If the mouse is in bounds of the grid
@@ -112,6 +168,10 @@ void mousePressed()
     if (mouseButton == LEFT)
     {
       doMove(mouseGridX, mouseGridY);
+    }
+    if (mouseButton == RIGHT)
+    {
+      grid[mouseGridX][mouseGridY] = grid[mouseGridX][mouseGridY] == 1 ? 2 : 1;
     }
   }
 }
