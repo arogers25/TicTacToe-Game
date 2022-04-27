@@ -158,6 +158,7 @@ void draw()
   if (winner > 0)
   {
     if (winner == 3) println("Tie");
+    else
     println((winner == 1 ? "X" : "O") + " Wins");
   }
 }
