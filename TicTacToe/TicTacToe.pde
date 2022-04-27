@@ -1,16 +1,8 @@
-int gridAmount = 3; // How many squares the play grid has
-int gridSize = 0; // The size of the grid boxes
-int lineGap = 0; // For piece scaling
-int gridPosX = 0, gridPosY = 150; // Set both to 0 for fullscreen
-
-int grid[][]; // The array of the game pieces
-int team = 1; // X is 1, O is 2
+int currentSide = 1; // X is 1, O is 2
 int winner = 0; // The side that has won the game, 3 is tie
-boolean multiPlayer = false;
-int playerTeam = 1; // The team the player is on if the game is singleplayer
+int playerSide = 1; // The side the player is on if the game is singleplayer
 int movesPlayed = 0;
-
-PFont gameFont;
+boolean multiPlayer = false;
 
 void setup()
 {
@@ -20,140 +12,6 @@ void setup()
   gameFont = createFont("Arial", 64);
   textFont(gameFont);
   textAlign(CENTER);
-}
-
-void drawX(int x, int y)
-{
-  stroke(color(255, 0, 0));
-  strokeWeight(8.0);
-  line(x, y, x + lineGap, y + lineGap);
-  line(x, y + lineGap, x + lineGap, y);
-}
-
-void drawO(int x, int y)
-{
-  noFill();
-  stroke(color(0, 0, 255));
-  strokeWeight(8.0);
-  circle(x + lineGap / 2, y + lineGap / 2, lineGap); // Add position divided by 2 to x and y so the circle draws centered
-}
-
-void drawMove(int x, int y, int moveTeam) // Draws move at coordinates on board
-{
-  if (moveTeam == 1)
-  {
-    drawX((gridPosX + lineGap / 2) + x * gridSize, (gridPosY + lineGap / 2) + y * gridSize);
-  } else if (moveTeam == 2)
-  {
-    drawO((gridPosX + lineGap / 2) + x * gridSize, (gridPosY + lineGap / 2) + y * gridSize);
-  }
-  // If the team is not 1 or 2 draw nothing
-}
-
-void drawGrid(int size) // Set size to width for fullscreen
-{
-  stroke(200);
-  strokeWeight(5.0);
-  gridSize = size / gridAmount;
-  lineGap = gridSize / 2;
-  for (int i = 1; i < gridAmount; i++)
-  {
-    line(gridPosX, gridPosY + (i * gridSize), gridPosX + size, gridPosY + (i * gridSize));
-    line(gridPosX + (i * gridSize), gridPosY, gridPosX + (i * gridSize), gridPosY + size);
-  }
-  for (int x = 0; x < gridAmount; x++)
-  {
-    for (int y = 0; y < gridAmount; y++)
-    {
-      if (grid[x][y] > 0)
-      {
-        drawMove(x, y, grid[x][y]);
-      }
-    }
-  }
-}
-
-int getRowWinner()
-{
-  for (int y = 0; y < gridAmount; y++)
-  {
-    int winnerX = -1;
-    for (int x = 0; x < gridAmount; x++)
-    {
-      if (grid[0][y] != grid[x][y] || grid[x][y] == 0)
-      {
-        winnerX = -1; // If there is a move on the row that is not the same as every other or is empty, break the loop and go to the next Y
-        break;
-      }
-      winnerX = x;
-    }
-    if (winnerX != -1) // If this row has no empty pieces or only has 1 team with all the moves on it
-    {
-      return grid[0][y]; // Every piece on the row is the same if it is won so it doesn't matter what X the grid is returned at
-    }
-  }
-  return 0;
-}
-
-int getColumnWinner()
-{
-  for (int x = 0; x < gridAmount; x++)
-  {
-    int winnerY = -1;
-    for (int y = 0; y < gridAmount; y++)
-    {
-      if (grid[x][0] != grid[x][y] || grid[x][y] == 0)
-      {
-        winnerY = -1;
-        break;
-      }
-      winnerY = y;
-    }
-    if (winnerY != -1)
-    {
-      return grid[x][0];
-    }
-  }
-  return 0;
-}
-
-int getDiagWinners()
-{
-  boolean diagWon = true;
-  boolean reverseDiagWon = true;
-  for (int i = 0; i < gridAmount; i++)
-  {
-    if (grid[0][0] != grid[i][i]) 
-    {
-      diagWon = false;
-    }
-    if (grid[0][gridAmount - 1] != grid[i][(gridAmount - 1) - i])
-    {
-      reverseDiagWon = false;
-    }
-  }
-  if (diagWon) return grid[0][0];
-  if (reverseDiagWon) return grid[0][gridAmount - 1];
-  return 0; // Return 0 if there are no winners on the diagonal or reverse diagonal
-}
-
-void getWinner()
-{
-  if (getRowWinner() > 0) winner = getRowWinner();
-  if (getColumnWinner() > 0) winner = getColumnWinner();
-  if (getDiagWinners() > 0) winner = getDiagWinners();
-  if (movesPlayed == (gridAmount * gridAmount) && winner == 0) winner = 3; // If all of the moves have been played and there is no winner it is a tie
-}
-
-void doMove(int x, int y)
-{
-  if (grid[x][y] == 0)
-  {
-    movesPlayed++;
-    grid[x][y] = team;
-    getWinner();
-    team = (team == 1 ? 2 : 1);
-  }
 }
 
 void doAiMove()
@@ -172,11 +30,9 @@ void doAiMove()
 
 void draw()
 {
-  //println(getDiagWinners());
-  //println(floor(random(3)));
   background(255);
-  if (team == 1) drawX(10, 10);
-  if (team == 2) drawO(10, 10);
+  if (currentSide == 1) drawX(10, 10);
+  if (currentSide == 2) drawO(10, 10);
   drawGrid(700);
   if (winner > 0)
   {
@@ -193,7 +49,7 @@ void draw()
   }
   else
   {
-    if (team != playerTeam && !multiPlayer)
+    if (currentSide != playerSide && !multiPlayer)
     {
       doAiMove();
     }
@@ -210,7 +66,7 @@ void mousePressed()
   {
     if (mouseButton == LEFT)
     {
-      if ((!multiPlayer && playerTeam == team) || (multiPlayer))
+      if ((!multiPlayer && playerSide == currentSide) || (multiPlayer))
       doMove(mouseGridX, mouseGridY);
     }
     if (mouseButton == RIGHT)
