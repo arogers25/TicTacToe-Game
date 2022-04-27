@@ -1,5 +1,5 @@
 int gridAmount = 3; // How many squares the play grid has
-int gridPosX = 0, gridPosY = 150; // Set both to 0 for fullscreen
+int gridPosX = 150, gridPosY = 150; // Set both to 0 for fullscreen
 int grid[][]; // The array of the game pieces
 
 int getRowWinner()
@@ -72,15 +72,4 @@ void getWinner()
   if (getColumnWinner() > 0) winner = getColumnWinner();
   if (getDiagWinners() > 0) winner = getDiagWinners();
   if (movesPlayed == (gridAmount * gridAmount) && winner == 0) winner = 3; // If all of the moves have been played and there is no winner it is a tie
-}
-
-void doMove(int x, int y)
-{
-  if (grid[x][y] == 0)
-  {
-    movesPlayed++;
-    grid[x][y] = currentSide;
-    getWinner();
-    currentSide = (currentSide == 1 ? 2 : 1);
-  }
 }

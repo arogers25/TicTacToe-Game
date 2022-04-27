@@ -6,12 +6,22 @@ boolean multiPlayer = false;
 
 void setup()
 {
-  size(700, 850);
+  size(700, 700);
   grid = new int[gridAmount][gridAmount];
   strokeCap(SQUARE); // Makes lines square instead of rounded
   gameFont = createFont("Arial", 64);
   textFont(gameFont);
   textAlign(CENTER);
+}
+
+void doMove(int x, int y)
+{
+  if (grid[x][y] == 0)
+  {
+    movesPlayed++;
+    grid[x][y] = currentSide;
+    currentSide = (currentSide == 1 ? 2 : 1);
+  }
 }
 
 void doAiMove()
@@ -29,9 +39,10 @@ void doAiMove()
 void draw()
 {
   background(255);
+  getWinner();
   if (currentSide == 1) drawX(10, 10);
   if (currentSide == 2) drawO(10, 10);
-  drawGrid(700);
+  drawGrid(400);
   if (winner == 0)
   {
     if (currentSide != playerSide && !multiPlayer)
