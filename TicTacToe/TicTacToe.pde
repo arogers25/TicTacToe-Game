@@ -74,8 +74,31 @@ void doMove(int x, int y)
   }
 }
 
+int getRowWinner()
+{
+  for (int y = 0; y < gridAmount; y++)
+  {
+    int winnerX = -1;
+    for (int x = 0; x < gridAmount; x++)
+    {
+      if (grid[0][y] != grid[x][y] || grid[x][y] == 0)
+      {
+        winnerX = -1; // If there is no "winner" on this row break the loop and go to the next Y
+        break;
+      }
+      winnerX = x;
+    }
+    if (winnerX != -1)
+    {
+      return grid[winnerX][y];
+    }
+  }
+  return 0;
+}
+
 void draw()
 {
+  println(getRowWinner());
   background(255);
   drawGrid(300);
 }
