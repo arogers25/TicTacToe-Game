@@ -83,14 +83,14 @@ int getRowWinner()
     {
       if (grid[0][y] != grid[x][y] || grid[x][y] == 0)
       {
-        winnerX = -1; // If there is no "winner" on this row break the loop and go to the next Y
+        winnerX = -1; // If there is a move on the row that is not the same as every other or is empty, break the loop and go to the next Y
         break;
       }
       winnerX = x;
     }
-    if (winnerX != -1)
+    if (winnerX != -1) // If this row has no empty pieces or only has 1 team with all the moves on it
     {
-      return grid[winnerX][y];
+      return grid[0][y];
     }
   }
   return 0;
