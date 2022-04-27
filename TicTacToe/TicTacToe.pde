@@ -1,20 +1,25 @@
 int gridAmount = 3; // How many squares the play grid has
 int gridSize = 0; // The size of the grid boxes
 int lineGap = 0; // For piece scaling
-int gridPosX = 100, gridPosY = 100; // Set both to 0 for fullscreen
+int gridPosX = 0, gridPosY = 150; // Set both to 0 for fullscreen
 
 int grid[][]; // The array of the game pieces
 int team = 1; // X is 1, O is 2
 int winner = 0; // The side that has won the game, 3 is tie
-boolean multiPlayer = true;
+boolean multiPlayer = false;
+int playerTeam = 1; // The team the player is on if the game is singleplayer
 int movesPlayed = 0;
+
+PFont gameFont;
 
 void setup()
 {
-  size(700, 700);
+  size(700, 850);
   grid = new int[gridAmount][gridAmount];
   strokeCap(SQUARE); // Makes lines square instead of rounded
-  noFill();
+  gameFont = createFont("Arial", 64);
+  textFont(gameFont);
+  textAlign(CENTER);
 }
 
 void drawX(int x, int y)
@@ -27,6 +32,7 @@ void drawX(int x, int y)
 
 void drawO(int x, int y)
 {
+  noFill();
   stroke(color(0, 0, 255));
   strokeWeight(8.0);
   circle(x + lineGap / 2, y + lineGap / 2, lineGap); // Add position divided by 2 to x and y so the circle draws centered
@@ -136,7 +142,7 @@ void getWinner()
   if (getRowWinner() > 0) winner = getRowWinner();
   if (getColumnWinner() > 0) winner = getColumnWinner();
   if (getDiagWinners() > 0) winner = getDiagWinners();
-  if (movesPlayed == gridAmount * gridAmount) winner = 3; // If all of the moves have been played and there is no winner it is a tie
+  if (movesPlayed == (gridAmount * gridAmount) && winner == 0) winner = 3; // If all of the moves have been played and there is no winner it is a tie
 }
 
 void doMove(int x, int y)
@@ -150,16 +156,47 @@ void doMove(int x, int y)
   }
 }
 
+void doAiMove()
+{
+  int randomPosX = floor(random(gridAmount));
+  int randomPosY = floor(random(gridAmount));
+  while (grid[randomPosX][randomPosY] > 0)
+  {
+    randomPosX = floor(random(gridAmount));
+    randomPosY = floor(random(gridAmount));
+  }
+  println(randomPosX, randomPosY);
+  //while (randomPos != 0) randomPos = grid[floor(random(3))][floor(random(3))];
+  doMove(randomPosX, randomPosY);
+}
+
 void draw()
 {
   //println(getDiagWinners());
+  //println(floor(random(3)));
   background(255);
-  drawGrid(300);
+  if (team == 1) drawX(10, 10);
+  if (team == 2) drawO(10, 10);
+  drawGrid(700);
   if (winner > 0)
   {
-    if (winner == 3) println("Tie");
+    if (winner == 3)
+    {
+      fill(0);
+      text("Tie", width / 2, 75);
+    }
     else
-    println((winner == 1 ? "X" : "O") + " Wins");
+    {
+      fill(winner == 1 ? color(255, 0, 0) : color(0, 0, 255));
+      text(((winner == 1 ? "X" : "O") + " Wins"), width / 2, 75);
+    }
+  }
+  else
+  {
+    if (team != playerTeam && !multiPlayer)
+    {
+      doAiMove();
+    }
   }
 }
 
@@ -173,6 +210,7 @@ void mousePressed()
   {
     if (mouseButton == LEFT)
     {
+      if ((!multiPlayer && playerTeam == team) || (multiPlayer))
       doMove(mouseGridX, mouseGridY);
     }
     if (mouseButton == RIGHT)
