@@ -11,7 +11,7 @@ void setup()
   strokeCap(SQUARE); // Makes lines square instead of rounded
   gameFont = createFont("Arial", 64);
   textFont(gameFont);
-  textAlign(CENTER);
+  textAlign(CENTER, CENTER);
 }
 
 void doMove(int x, int y)
@@ -51,6 +51,7 @@ void draw()
     }
   } else
   {
+    textSize(64);
     if (winner == 3)
     {
       fill(0);
@@ -61,16 +62,18 @@ void draw()
       text(((winner == 1 ? "X" : "O") + " Wins"), width / 2, 75);
     }
   }
+  drawGui();
 }
 
 void mousePressed()
 {
+  mousePressedGui();
   if (winner > 0) return; // Only allow input if the game does not have a winner
-
   int mouseGridX = (mouseX - gridPosX) / gridSize; // The position of the mouse on the grid
   int mouseGridY = (mouseY - gridPosY) / gridSize;
   if (mouseGridX >= 0 && mouseGridX < gridAmount && mouseGridY >= 0 && mouseGridY < gridAmount) // If the mouse is in bounds of the grid
   {
+        println(mouseGridX, mouseGridY, (mouseX - gridPosX) / gridSize);
     if (mouseButton == LEFT)
     {
       if ((!multiPlayer && playerSide == currentSide) || multiPlayer)
