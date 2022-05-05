@@ -2,7 +2,7 @@ int currentSide = 1; // X is 1, O is 2
 int winner = 0; // The side that has won the game, 3 is tie
 int playerSide = 1; // The side the player is on if the game is singleplayer
 int movesPlayed = 0;
-boolean multiPlayer = false;
+boolean multiPlayer = true;
 
 void setup()
 {
@@ -69,8 +69,8 @@ void mousePressed()
 {
   mousePressedGui();
   if (winner > 0) return; // Only allow input if the game does not have a winner
-  int mouseGridX = (mouseX - gridPosX) / gridSize; // The position of the mouse on the grid
-  int mouseGridY = (mouseY - gridPosY) / gridSize;
+  int mouseGridX = floor((float(mouseX) - float(gridPosX)) / float(gridSize));
+  int mouseGridY = floor((float(mouseY) - float(gridPosY)) / float(gridSize));
   if (mouseGridX >= 0 && mouseGridX < gridAmount && mouseGridY >= 0 && mouseGridY < gridAmount) // If the mouse is in bounds of the grid
   {
         println(mouseGridX, mouseGridY, (mouseX - gridPosX) / gridSize);
