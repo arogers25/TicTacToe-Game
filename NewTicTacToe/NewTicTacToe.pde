@@ -6,7 +6,7 @@ char currentSide;
 void setup()
 {
   size(700, 700);
-  setupBoard();
+  setupBoard(0, 0, width);
 }
 
 void draw()
