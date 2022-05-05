@@ -1,14 +1,16 @@
 char board[][];
 int boardSize = 3;
-char currentSide = 'X';
+char startingSide = 'X';
+char currentSide;
 
 void setup()
 {
   size(700, 700);
-  board = new char[boardSize][boardSize];
-  
+  setupBoard();
 }
 
 void draw()
 {
+  background(255);
+  drawBoard();
 }
