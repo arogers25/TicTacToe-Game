@@ -8,7 +8,7 @@ void setupBoard(float x, float y, float w)
   boardWidth = w;
   
   board = new char[boardSize][boardSize];
-  pieceSize = width / boardSize;
+  pieceSize = w / boardSize;
   lineGap = pieceSize / 2;
   currentSide = startingSide;
 }
