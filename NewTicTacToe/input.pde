@@ -30,6 +30,11 @@ void mousePressed()
   {
     setupBoard(boardX, boardY, boardWidth);
   }
+  if (resetScoreboardButton)
+  {
+    resetScore();
+    setupBoard(boardX, boardY, boardWidth);
+  }
   if (exitButton)
   {
     exit();
