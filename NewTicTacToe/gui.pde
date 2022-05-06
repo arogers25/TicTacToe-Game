@@ -2,6 +2,7 @@ boolean multiPlayerButton = false;
 boolean singlePlayerButton = false;
 boolean resetButton = false;
 boolean exitButton = false;
+boolean switchSideButton = false;
 
 boolean button(String label, float x, float y, float w, float h, int col, int outlineCol)
 {
@@ -54,4 +55,7 @@ void drawGui()
   
   resetButton = button("Reset", width - 210, 10, 200, 50, color(210), color(175));
   exitButton = button("Exit", width - 210, 70, 200, 50, color(255, 0, 0), color(128, 0, 0));
+  
+  switchSideButton = button("", lineGap - 10, height - pieceSize - 10, lineGap + 20, lineGap + 20, color(210), color(175));
+  drawPiece(lineGap, height - pieceSize, currentSide, false);
 }

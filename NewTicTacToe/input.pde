@@ -34,13 +34,20 @@ void mousePressed()
   {
     exit();
   }
-  
+  if (switchSideButton)
+  {
+    switchSides();
+  }
+
   if (updateMousePos() && winner == 0)
   {
     if (board[mouseGridX][mouseGridY] == 0)
     {
-      println(mouseGridX, mouseGridY);
-      doMove(mouseGridX, mouseGridY);
+      if (players == 2 || currentSide != aiSide)
+      {
+        println(mouseGridX, mouseGridY);
+        doMove(mouseGridX, mouseGridY);
+      }
     }
   }
 }

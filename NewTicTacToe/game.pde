@@ -4,13 +4,17 @@ int movesMade = 0;
 int scoreX = 0;
 int scoreO = 0;
 
+void switchSides()
+{  
+  if (currentSide == 'X') currentSide = 'O';
+  else if (currentSide == 'O') currentSide = 'X';
+}
+
 void doMove(int x, int y)
 {
   board[x][y] = currentSide;
   movesMade++;
-  
-  if (currentSide == 'X') currentSide = 'O';
-  else if (currentSide == 'O') currentSide = 'X';
+  switchSides();
 }
 
 void resetScore() // This is a seperate function to save time
