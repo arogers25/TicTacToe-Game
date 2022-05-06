@@ -6,7 +6,7 @@ boolean exitButton = false;
 boolean button(String label, float x, float y, float w, float h, int col, int outlineCol)
 {
   boolean hovering = mouseInBounds(x, y, w, h);
-  strokeWeight(2.0);
+  strokeWeight(3.0);
   stroke(outlineCol);
   fill(col);
   rect(x, y, w, h);
@@ -24,10 +24,25 @@ boolean button(String label, float x, float y, float w, float h, int col, int ou
 }
 
 void drawScore()
-{
+{  
   textSize(72);
   fill(0);
   text(scoreX + " - " + scoreO, width / 2, 70);
+  
+  if (winner != 0)
+  {
+    textSize(50);
+    if (winner == 'T')
+    {
+      fill(0);
+      text("Tie", width / 2, 140);
+    }
+    else
+    {
+      fill(winner == 'X' ? color(255, 0, 0) : color(0, 0, 255));
+      text(winner + " Wins", width / 2, 140);
+    }
+  }
 }
 
 void drawGui()

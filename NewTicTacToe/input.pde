@@ -16,11 +16,13 @@ void mousePressed()
 {
   if (singlePlayerButton)
   {
+    resetScore();
     players = 1;
     setupBoard(boardX, boardY, boardWidth);
   }
   if (multiPlayerButton)
   {
+    resetScore();
     players = 2;
     setupBoard(boardX, boardY, boardWidth);
   }
@@ -32,7 +34,8 @@ void mousePressed()
   {
     exit();
   }
-  if (updateMousePos())
+  
+  if (updateMousePos() && winner == 0)
   {
     if (board[mouseGridX][mouseGridY] == 0)
     {

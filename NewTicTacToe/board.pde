@@ -12,8 +12,7 @@ void setupBoard(float x, float y, float w)
   lineGap = pieceSize / 2;
   currentSide = startingSide;
   winner = 0;
-  scoreX = 0;
-  scoreO = 0;
+  movesMade = 0;
 }
 
 void drawPiece(float x, float y, char piece, boolean onBoard)
