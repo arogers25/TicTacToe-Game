@@ -14,6 +14,24 @@ boolean updateMousePos()
 
 void mousePressed()
 {
+  if (singlePlayerButton)
+  {
+    players = 1;
+    setupBoard(boardX, boardY, boardWidth);
+  }
+  if (multiPlayerButton)
+  {
+    players = 2;
+    setupBoard(boardX, boardY, boardWidth);
+  }
+  if (resetButton)
+  {
+    setupBoard(boardX, boardY, boardWidth);
+  }
+  if (exitButton)
+  {
+    exit();
+  }
   if (updateMousePos())
   {
     if (board[mouseGridX][mouseGridY] == 0)

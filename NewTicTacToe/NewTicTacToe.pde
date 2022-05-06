@@ -19,5 +19,6 @@ void draw()
 {
   background(255);
   drawBoard();
+  drawGui();
   //drawPiece(0, 0, 'O', true);
 }
