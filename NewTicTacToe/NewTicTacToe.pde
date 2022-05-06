@@ -8,7 +8,7 @@ PFont mainFont;
 
 void setup()
 {
-  size(900, 900);
+  size(700, 700);
   setupBoard(width / 4, width / 4, width / 2);
   strokeCap(SQUARE);
   textAlign(CENTER, CENTER);
