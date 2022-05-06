@@ -20,14 +20,10 @@ void draw()
   background(255);
   drawBoard();
   drawGui();
-    if (winner == 0)
+  if (winner == 0)
   {
     winner = getWinner();
     if (winner == 'X') scoreX++;
     if (winner == 'O') scoreO++;
   }
-  //println(movesMade);
-  //if (getWinner() != 0)
-  //println(getWinner());
-  //drawPiece(0, 0, 'O', true);
 }
