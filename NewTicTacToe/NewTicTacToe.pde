@@ -1,7 +1,8 @@
 char board[][];
 int boardSize = 3;
-char startingSide = 'X';
+char playerSide = 'X';
 char aiSide = 'O';
+char startingSide;
 char winner = 0;
 PFont mainFont;
 // These can be moved later
