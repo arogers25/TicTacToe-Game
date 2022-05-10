@@ -22,10 +22,13 @@ void draw()
   background(255);
   drawBoard();
   drawGui();
-  if (players == 1) doAiMove();
   if (winner == 0)
   {
     winner = getWinner();
+    if (players == 1)
+    {
+      if (currentSide == aiSide) doAiMove(); else delayTimer = millis();
+    }
     if (winner == 'X') scoreX++;
     if (winner == 'O') scoreO++;
   }
