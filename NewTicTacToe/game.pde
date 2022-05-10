@@ -23,6 +23,22 @@ void resetScore() // This is a seperate function to save time
   scoreO = 0;
 }
 
+ArrayList<int[]> getEmptyPlaces()
+{
+  ArrayList<int[]> emptyPlaces = new ArrayList<int[]>();
+  for (int x = 0; x < boardSize; x++)
+  {
+    for (int y = 0; y < boardSize; y++)
+    {
+      if (board[x][y] == 0)
+      {
+        emptyPlaces.add(new int[]{x, y});
+      }
+    }
+  }
+  return emptyPlaces;
+}
+
 char getRowWinner()
 {
   for (int y = 0; y < boardSize; y++)
@@ -86,7 +102,7 @@ char getWinner()
   }
   if (diagWon) return board[0][0];
   if (reverseDiagWon) return board[0][boardSize - 1];
-  if (movesMade == boardSize * boardSize) return 'T';
+  if (getEmptyPlaces().size() == 0) return 'T';
   
   return 0;
 }
