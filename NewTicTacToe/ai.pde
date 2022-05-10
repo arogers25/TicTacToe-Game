@@ -43,7 +43,7 @@ void doAiMove()
     int bestValue = -99999;
     for (int[] i : getEmptyPlaces())
     {
-      board[i[0]][i[1]] = aiSide;
+      board[i[0]][i[1]] = aiSide; // Initial move
       int value = minimax(9, false);
       board[i[0]][i[1]] = 0;
       if (value > bestValue)
