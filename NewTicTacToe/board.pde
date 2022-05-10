@@ -10,7 +10,6 @@ void setupBoard(float x, float y, float w)
   board = new char[boardSize][boardSize];
   pieceSize = w / (float)boardSize;
   lineGap = pieceSize / 2;
-  startingSide = playerSide;
   currentSide = startingSide;
   winner = 0;
   movesMade = 0;

@@ -2,7 +2,7 @@ char board[][];
 int boardSize = 3;
 char playerSide = 'X';
 char aiSide = 'O';
-char startingSide;
+char startingSide = playerSide;
 char winner = 0;
 PFont mainFont;
 // These can be moved later
