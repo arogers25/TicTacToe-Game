@@ -9,7 +9,7 @@ boolean updateMousePos()
 {
   mouseGridX = floor((mouseX - boardX) / pieceSize);
   mouseGridY = floor((mouseY - boardY) / pieceSize);
-  return (mouseGridX >= 0 && mouseGridX < boardSize && mouseGridY >= 0 && mouseGridY <= boardSize);
+  return (mouseGridX >= 0 && mouseGridX < boardSize && mouseGridY >= 0 && mouseGridY < boardSize);
 }
 
 void mousePressed()
