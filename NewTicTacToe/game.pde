@@ -70,14 +70,14 @@ char getColumnWinner()
     {
       if (board[x][0] != board[x][y] || board[x][y] == 0)
       {
-        winnerFound = false; // If there is a move on the row that is not the same as every other or is empty, break the loop and go to the next Y
+        winnerFound = false; // If there is a move on the row that is not the same as every other or is empty, break the loop and go to the next X
         break;
       }
       winnerFound = true;
     }
     if (winnerFound) // If this row has no empty pieces or only has 1 side with all the moves on it
     {
-      return board[x][0]; // Every piece on the row is the same if it is won so it doesn't matter what X the grid is returned at
+      return board[x][0]; // Every piece on the row is the same if it is won so it doesn't matter what Y the grid is returned at
     }
   }
   return 0;
