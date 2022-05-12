@@ -50,7 +50,7 @@ void mousePressed()
     {
       if (players == 2 || currentSide != aiSide)
       {
-        println(mouseGridX, mouseGridY);
+        //println(mouseGridX, mouseGridY);
         doMove(mouseGridX, mouseGridY);
       }
     }
