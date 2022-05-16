@@ -1,4 +1,5 @@
 int delayTimer = 0;
+int selectedDifficulty = 2; // 0 is Easy (random), 1 is Medium, 2 is Impossible
 
 int minimax(int depth, boolean maximizing)
 {
@@ -77,7 +78,7 @@ void doAiMove()
 {
   if (millis() >= delayTimer + random(500, 3500))
   {
-    int[] move = getBestPlace(1);
+    int[] move = getBestPlace(selectedDifficulty);
     doMove(move[0], move[1]);
   }
 }
