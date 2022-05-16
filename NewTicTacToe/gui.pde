@@ -2,6 +2,7 @@ boolean resetButton = false;
 boolean resetScoreboardButton = false;
 boolean exitButton = false;
 boolean switchSideButton = false;
+boolean backToMenuButton = false;
 
 boolean button(String label, float x, float y, float w, float h, int col, int outlineCol)
 {
@@ -44,12 +45,45 @@ void drawScore()
   }
 }
 
+void guiInput()
+{
+  if (backToMenuButton)
+  {
+    state = 0;
+  }
+  if (resetButton)
+  {
+    setupBoard(boardX, boardY, boardWidth);
+  }
+  if (resetScoreboardButton)
+  {
+    resetScore();
+    setupBoard(boardX, boardY, boardWidth);
+  }
+  if (switchSideButton)
+  {
+    switchSides();
+  }
+  if (updateMousePos() && winner == 0)
+  {
+    if (board[mouseGridX][mouseGridY] == 0)
+    {
+      if (players == 2 || currentSide != aiSide)
+      {
+        //println(mouseGridX, mouseGridY);
+        doMove(mouseGridX, mouseGridY);
+      }
+    }
+  }
+}
+
 void drawGui()
 {
   drawScore();
 
-  resetButton = button("Reset", width - 210, 10, 200, 50, color(210), color(175));
-  resetScoreboardButton = button("Reset Scoreboard", width - 210, 70, 200, 50, color(210), color(175));
+  backToMenuButton = button("Back to Menu", width - 210, 70, 200, 50, color(210), color(175));
+  resetButton = button("Reset", 10, 10, 200, 50, color(210), color(175));
+  resetScoreboardButton = button("Reset Scoreboard", 10, 70, 200, 50, color(210), color(175));
 
   switchSideButton = button("", lineGap - 10, height - pieceSize - 10, lineGap + 20, lineGap + 20, color(210), color(175));
   drawPiece(lineGap, height - pieceSize, currentSide, false);

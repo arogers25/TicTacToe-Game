@@ -11,4 +11,19 @@ void drawMenu()
 
 void menuInput()
 {
+  if (singlePlayerButton)
+  {
+    players = 1;
+    //setupBoard(boardX, boardY, boardWidth);
+  }
+  if (multiPlayerButton)
+  {
+    players = 2;
+  }
+  if (startGameButton)
+  {
+    resetScore();
+    setupBoard(boardX, boardY, boardWidth);
+    state = 1;
+  }
 }
