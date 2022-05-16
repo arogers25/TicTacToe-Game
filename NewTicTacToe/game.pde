@@ -87,7 +87,7 @@ char getWinner()
 {
   if (getRowWinner() != 0) return getRowWinner();
   if (getColumnWinner() != 0) return getColumnWinner();
-  
+
   boolean diagWon = true, reverseDiagWon = true;
   for (int i = 0; i < boardSize; i++) // Check diagonal winners
   {
@@ -103,6 +103,6 @@ char getWinner()
   if (diagWon) return board[0][0];
   if (reverseDiagWon) return board[0][boardSize - 1];
   if (getEmptyPlaces().size() == 0) return 'T';
-  
+
   return 0;
 }

@@ -6,9 +6,10 @@ int minimax(int depth, boolean maximizing)
   if (depth == 0 || score != 0)
   {
     if (score == 'T') return 0;
-    if (score == aiSide) return 10; else return -10; // Should be assigned to sides instead of relative to the AI
+    if (score == aiSide) return 10; 
+    else return -10; // Should be assigned to sides instead of relative to the AI
   }
-  
+
   if (maximizing)
   {
     int bestValue = -99999;
@@ -20,7 +21,7 @@ int minimax(int depth, boolean maximizing)
       if (value > bestValue) bestValue = value;
     }
     return bestValue;
-  }
+  } 
   else // If minimizing
   {
     int bestValue = 99999;

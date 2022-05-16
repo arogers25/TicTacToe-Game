@@ -5,6 +5,7 @@ char aiSide = 'O';
 char startingSide = playerSide;
 char winner = 0;
 PFont mainFont;
+int state = 0; // 0 is for menu, 1 is for in game
 // These can be moved later
 
 void setup()
@@ -21,16 +22,21 @@ void setup()
 void draw()
 {
   background(255);
-  drawBoard();
-  drawGui();
-  if (winner == 0)
+  switch (state)
   {
-    winner = getWinner();
-    if (players == 1)
+  case 1:
+    drawBoard();
+    drawGui();
+    if (winner == 0)
     {
-      if (currentSide == aiSide) doAiMove(); else delayTimer = millis();
+      winner = getWinner();
+      if (players == 1)
+      {
+        if (currentSide == aiSide) doAiMove(); 
+        else delayTimer = millis();
+      }
+      if (winner == 'X') scoreX++;
+      if (winner == 'O') scoreO++;
     }
-    if (winner == 'X') scoreX++;
-    if (winner == 'O') scoreO++;
   }
 }
