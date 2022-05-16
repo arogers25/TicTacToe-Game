@@ -29,7 +29,7 @@ void draw()
     {
       drawMenu();
       fill(0);
-      text("Menu", width / 2, height / 2);
+      //text("Menu", width / 2, height / 2);
       break;
     }
   case 1:
