@@ -25,17 +25,21 @@ void drawPiece(float x, float y, char piece, boolean onBoard)
   switch (piece)
   {
   case 'X':
-    stroke(255, 0, 0);
-    strokeWeight(9.0);
-    line(x, y, x + lineGap, y + lineGap);
-    line(x, y + lineGap, x + lineGap, y);
-    break;
+    {
+      stroke(255, 0, 0);
+      strokeWeight(9.0);
+      line(x, y, x + lineGap, y + lineGap);
+      line(x, y + lineGap, x + lineGap, y);
+      break;
+    }
   case 'O':
-    stroke(0, 0, 255);
-    strokeWeight(9.0);
-    noFill();
-    circle(x + lineGap / 2, y + lineGap / 2, lineGap);
-    break;
+    {
+      stroke(0, 0, 255);
+      strokeWeight(9.0);
+      noFill();
+      circle(x + lineGap / 2, y + lineGap / 2, lineGap);
+      break;
+    }
   }
 }
 

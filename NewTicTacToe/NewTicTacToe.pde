@@ -24,19 +24,28 @@ void draw()
   background(255);
   switch (state)
   {
-  case 1:
-    drawBoard();
-    drawGui();
-    if (winner == 0)
+  case 0:
     {
-      winner = getWinner();
-      if (players == 1)
+      fill(0);
+      text("Menu", width / 2, height / 2);
+      break;
+    }
+  case 1:
+    {
+      drawBoard();
+      drawGui();
+      if (winner == 0)
       {
-        if (currentSide == aiSide) doAiMove(); 
-        else delayTimer = millis();
+        winner = getWinner();
+        if (players == 1)
+        {
+          if (currentSide == aiSide) doAiMove(); 
+          else delayTimer = millis();
+        }
+        if (winner == 'X') scoreX++;
+        if (winner == 'O') scoreO++;
       }
-      if (winner == 'X') scoreX++;
-      if (winner == 'O') scoreO++;
+      break;
     }
   }
 }
