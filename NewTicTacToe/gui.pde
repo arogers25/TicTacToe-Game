@@ -1,5 +1,3 @@
-boolean multiPlayerButton = false;
-boolean singlePlayerButton = false;
 boolean resetButton = false;
 boolean resetScoreboardButton = false;
 boolean exitButton = false;
@@ -50,12 +48,8 @@ void drawGui()
 {
   drawScore();
 
-  singlePlayerButton = button("1 Player Mode", 10, 10, 200, 50, players == 1 ? color(150) : color(210), color(175));
-  multiPlayerButton = button("2 Player Mode", 10, 70, 200, 50, players == 2 ? color(150) : color(210), color(175));
-
   resetButton = button("Reset", width - 210, 10, 200, 50, color(210), color(175));
   resetScoreboardButton = button("Reset Scoreboard", width - 210, 70, 200, 50, color(210), color(175));
-  exitButton = button("Exit", width - 210, 130, 200, 50, color(255, 0, 0), color(128, 0, 0));
 
   switchSideButton = button("", lineGap - 10, height - pieceSize - 10, lineGap + 20, lineGap + 20, color(210), color(175));
   drawPiece(lineGap, height - pieceSize, currentSide, false);

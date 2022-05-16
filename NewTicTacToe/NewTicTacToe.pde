@@ -22,10 +22,12 @@ void setup()
 void draw()
 {
   background(255);
+  exitButton = button("Exit", width - 210, 10, 200, 50, color(255, 0, 0), color(128, 0, 0));
   switch (state)
   {
   case 0:
     {
+      drawMenu();
       fill(0);
       text("Menu", width / 2, height / 2);
       break;

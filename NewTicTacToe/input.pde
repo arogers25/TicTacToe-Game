@@ -14,44 +14,52 @@ boolean updateMousePos()
 
 void mousePressed()
 {
-  if (singlePlayerButton)
-  {
-    resetScore();
-    players = 1;
-    setupBoard(boardX, boardY, boardWidth);
-  }
-  if (multiPlayerButton)
-  {
-    resetScore();
-    players = 2;
-    setupBoard(boardX, boardY, boardWidth);
-  }
-  if (resetButton)
-  {
-    setupBoard(boardX, boardY, boardWidth);
-  }
-  if (resetScoreboardButton)
-  {
-    resetScore();
-    setupBoard(boardX, boardY, boardWidth);
-  }
   if (exitButton)
   {
     exit();
   }
-  if (switchSideButton)
+  switch (state)
   {
-    switchSides();
-  }
-
-  if (updateMousePos() && winner == 0)
-  {
-    if (board[mouseGridX][mouseGridY] == 0)
+  case 0:
     {
-      if (players == 2 || currentSide != aiSide)
+      if (singlePlayerButton)
       {
-        //println(mouseGridX, mouseGridY);
-        doMove(mouseGridX, mouseGridY);
+        players = 1;
+        //setupBoard(boardX, boardY, boardWidth);
+      }
+      if (multiPlayerButton)
+      {
+        players = 2;
+      }
+      break;
+    }
+  case 1:
+    {
+      {
+        if (resetButton)
+        {
+          setupBoard(boardX, boardY, boardWidth);
+        }
+        if (resetScoreboardButton)
+        {
+          resetScore();
+          setupBoard(boardX, boardY, boardWidth);
+        }
+        if (switchSideButton)
+        {
+          switchSides();
+        }
+      }
+      if (updateMousePos() && winner == 0)
+      {
+        if (board[mouseGridX][mouseGridY] == 0)
+        {
+          if (players == 2 || currentSide != aiSide)
+          {
+            //println(mouseGridX, mouseGridY);
+            doMove(mouseGridX, mouseGridY);
+          }
+        }
       }
     }
   }
