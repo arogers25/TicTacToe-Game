@@ -4,9 +4,10 @@ boolean startGameButton = false;
 
 void drawMenu()
 {
-  singlePlayerButton = button("1 Player Mode", 10, 10, 200, 50, players == 1 ? color(150) : color(210), color(175));
-  multiPlayerButton = button("2 Player Mode", 10, 70, 200, 50, players == 2 ? color(150) : color(210), color(175));
-  startGameButton = button("Start", (width / 2) - 100, (height / 2) - 25, 200, 50, color(210), color(175));
+  //Make all these positions and sizes dynamic
+  singlePlayerButton = button("1 Player Mode", (width / 2) - 210, (height / 2) - 100, 200, 50, players == 1 ? color(150) : color(210), color(175));
+  multiPlayerButton = button("2 Player Mode", (width / 2) + 10, (height / 2) - 100, 200, 50, players == 2 ? color(150) : color(210), color(175));
+  startGameButton = button("Start", (width / 2) - 50, (height / 2) - 25, 100, 50, color(210), color(175));
 }
 
 void menuInput()
