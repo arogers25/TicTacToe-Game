@@ -14,7 +14,7 @@ void setup()
   buttonWidth = width / 5;
   buttonHeight = width * 0.05;
   // Fix board and GUI scaling so it can work properly without being in square
-  setupBoard(width / 4, width / 4, width / 2);
+  setupBoard(width / 6, width / 4, width / 1.5);
   strokeCap(SQUARE);
   textAlign(CENTER, CENTER);
   mainFont = createFont("Arial", 32);

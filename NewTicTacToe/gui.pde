@@ -34,15 +34,28 @@ void drawScore()
 
   if (winner != 0)
   {
+    noStroke();
     textSize(50);
     if (winner == 'T')
     {
+      fill(170, 170, 170, 150);
+      rect(boardX, boardY, boardWidth, boardWidth);
       fill(0);
-      text("Tie", width / 2, 140);
-    } else
+      text("Tie", boardX + (boardWidth / 2), boardY + (boardWidth / 2) - textAscent());
+    } 
+    else
     {
-      fill(winner == 'X' ? color(255, 0, 0) : color(0, 0, 255));
-      text(winner + " Wins", width / 2, 140);
+      fill(winner == 'X' ? color(255, 0, 0) : color(0, 0, 255), 150);
+      rect(boardX, boardY, boardWidth, boardWidth);
+      fill(255);
+      if (players == 0 || players == 2)
+      {
+        text(winner + " Wins", boardX + (boardWidth / 2), boardY + (boardWidth / 2) - textAscent());
+      }
+      else
+      {
+        text("You " + ((winner == playerSide) ? "Win" : "Lose"), boardX + (boardWidth / 2), boardY + (boardWidth / 2) - textAscent());
+      }
     }
   }
 }
