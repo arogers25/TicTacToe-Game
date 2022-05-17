@@ -11,6 +11,8 @@ int state = 0; // 0 is for menu, 1 is for in game
 void setup()
 {
   size(900, 900);
+  buttonWidth = width / 5;
+  buttonHeight = width * 0.05;
   // Fix board and GUI scaling so it can work properly without being in square
   setupBoard(width / 4, width / 4, width / 2);
   strokeCap(SQUARE);
@@ -22,7 +24,7 @@ void setup()
 void draw()
 {
   background(255);
-  exitButton = button("Exit", width - 210, 10, 200, 50, color(255, 0, 0), color(128, 0, 0));
+  exitButton = button("Exit", width - buttonWidth - 10, 10, buttonWidth, buttonHeight, color(255, 0, 0), color(128, 0, 0));
   switch (state)
   {
   case 0:

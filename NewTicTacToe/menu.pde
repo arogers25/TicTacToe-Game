@@ -11,12 +11,12 @@ void drawMenu()
   fill(0);
   textSize(72);
   text("Tic Tac Toe", width / 2, textAscent());
-  singlePlayerButton = button("1 Player Mode", (width / 2) - 210, (height / 2) - 100, 200, 50, players == 1 ? color(150) : color(210), color(175));
-  multiPlayerButton = button("2 Player Mode", (width / 2) + 10, (height / 2) - 100, 200, 50, players == 2 ? color(150) : color(210), color(175));
-  startGameButton = button("Play", (width / 2) - 50, (height / 2) - 25, 100, 50, color(0, 200, 0), color(50, 170, 50));
+  singlePlayerButton = button("1 Player Mode", (width / 2) - buttonWidth - 10, (height / 2) - (buttonWidth / 2), buttonWidth, buttonHeight, players == 1 ? color(150) : color(210), color(175));
+  multiPlayerButton = button("2 Player Mode", (width / 2) + 10, (height / 2) - buttonWidth / 2, buttonWidth, buttonHeight, players == 2 ? color(150) : color(210), color(175));
+  startGameButton = button("Play", (width / 2) - buttonHeight, (height / 2) - (buttonHeight / 2), buttonWidth / 2, buttonHeight, color(0, 200, 0), color(50, 170, 50));
   
-  startsButton1 = button(players == 1 ? "Human Starts" : "X Starts", (width / 2) - 210, (height / 2) - 160, 200, 50, startingSide == 'X' ? color(150) : color(210), color(175));
-  startsButton2 = button(players == 1 ? "AI Starts" : "O Starts", (width / 2) + 10, (height / 2) - 160, 200, 50, startingSide == 'O' ? color(150) : color(210), color(175));
+  //startsButton1 = button(players == 1 ? "Human Starts" : "X Starts", (width / 2) - 210, (height / 2) - 160, 200, 50, startingSide == 'X' ? color(150) : color(210), color(175));
+  //startsButton2 = button(players == 1 ? "AI Starts" : "O Starts", (width / 2) + 10, (height / 2) - 160, 200, 50, startingSide == 'O' ? color(150) : color(210), color(175));
 }
 
 void menuInput()

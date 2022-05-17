@@ -3,6 +3,8 @@ boolean resetScoreboardButton = false;
 boolean exitButton = false;
 boolean switchSideButton = false;
 boolean backToMenuButton = false;
+float buttonWidth = 0;
+float buttonHeight = 0;
 
 boolean button(String label, float x, float y, float w, float h, int col, int outlineCol)
 {
@@ -81,10 +83,10 @@ void drawGui()
 {
   drawScore();
 
-  backToMenuButton = button("Back to Menu", width - 210, 70, 200, 50, color(210), color(175));
-  resetButton = button("Reset", 10, 10, 200, 50, color(210), color(175));
-  resetScoreboardButton = button("Reset Scoreboard", 10, 70, 200, 50, color(210), color(175));
+  backToMenuButton = button("Back to Menu", width - buttonWidth - 10, buttonHeight + 20, buttonWidth, buttonHeight, color(210), color(175));
+  resetButton = button("Reset", 10, 10, buttonWidth, buttonHeight, color(210), color(175));
+  resetScoreboardButton = button("Reset Scoreboard", 10, buttonHeight + 20, buttonWidth, buttonHeight, color(210), color(175));
 
-  switchSideButton = button("", lineGap - 10, height - pieceSize - 10, lineGap + 20, lineGap + 20, color(210), color(175));
-  drawPiece(lineGap, height - pieceSize, currentSide, false);
+  //switchSideButton = button("", lineGap - 10, height - pieceSize - 10, lineGap + 20, lineGap + 20, color(210), color(175));
+  //drawPiece(lineGap, height - pieceSize, currentSide, false);
 }
