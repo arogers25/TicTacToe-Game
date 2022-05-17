@@ -79,7 +79,7 @@ void guiInput()
   {
     switchSides();
   }
-  if (updateMousePos() && winner == 0)
+  if (updateMousePos() && winner == 0 && !resetButton)
   {
     if (board[mouseGridX][mouseGridY] == 0)
     {
@@ -97,9 +97,11 @@ void drawGui()
   drawScore();
 
   backToMenuButton = button("Back to Menu", width - buttonWidth - 10, buttonHeight + 20, buttonWidth, buttonHeight, color(210), color(175));
-  resetButton = button("Reset", 10, 10, buttonWidth, buttonHeight, color(210), color(175));
-  resetScoreboardButton = button("Reset Scoreboard", 10, buttonHeight + 20, buttonWidth, buttonHeight, color(210), color(175));
+  resetScoreboardButton = button("Reset Score", 10, 10, buttonWidth, buttonHeight, color(210), color(175));
 
+  if (winner != 0) resetButton = button("Play Again", boardX + (boardWidth / 2) - (buttonWidth / 2), boardY + (boardWidth / 2), buttonWidth, buttonHeight, color(210), color(175));
+  else resetButton = false; // To prevent placing a piece when the reset button is clicked
+  
   //switchSideButton = button("", lineGap - 10, height - pieceSize - 10, lineGap + 20, lineGap + 20, color(210), color(175));
   //drawPiece(lineGap, height - pieceSize, currentSide, false);
 }
