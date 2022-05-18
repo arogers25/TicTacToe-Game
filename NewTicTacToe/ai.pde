@@ -45,7 +45,7 @@ int[] getBestPlace(int difficulty) // Get the best place on the board
   for (int[] i : emptyPlaces)
   {
     board[i[0]][i[1]] = aiSide; // Initial move
-    int value = minimax(9, false);
+    int value = minimax(0, false);
     board[i[0]][i[1]] = 0;
     if (value > bestValue)
     {
