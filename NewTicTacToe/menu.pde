@@ -5,6 +5,20 @@ boolean startGameButton = false;
 boolean playerSelect1 = false; // "Human Starts" in singleplayer, "X Starts" in multiplayer and 0 player
 boolean playerSelect2 = false; // "AI Starts" in singleplayer, "O Starts" in multiplayer and 0 player
 
+boolean difficultySelectEasy = false;
+boolean difficultySelectMedium = false;
+boolean difficultySelectImpossible = false;
+
+void drawDifficultySelect()
+{
+  float buttonX = (width / 2) - buttonWidth - 10;
+  float buttonY = (height / 1.7) - (buttonWidth / 2);
+  float diffButtonW = (buttonWidth * 2) / 3;
+  difficultySelectEasy = button("Easy", buttonX, buttonY, diffButtonW, buttonHeight, selectedDifficulty == 0 ? color(150) : color(210), color(175));
+  difficultySelectMedium = button("Medium", buttonX + diffButtonW + 10, buttonY, diffButtonW, buttonHeight, selectedDifficulty == 1 ? color(150) : color(210), color(175));
+  difficultySelectImpossible = button("Impossible", buttonX + (diffButtonW * 2) + 20, buttonY, diffButtonW, buttonHeight, selectedDifficulty == 2 ? color(150) : color(210), color(175));
+}
+
 void drawSideSelect()
 {
   lineGap = buttonWidth / 3; // Resizes piece for side select button, gets changed back when setupBoard() is called
@@ -12,7 +26,7 @@ void drawSideSelect()
   // Make positions easier to understand
   float button1X = (width / 2) - 10 - (buttonWidth / 2) - (lineGap * 0.75);
   float button2X = (width / 2) + 10 + (lineGap * 0.75);
-  float buttonsY = (height / 2) - (lineGap * 2);
+  float buttonsY = (height / 2.1) - (lineGap * 2);
   
   if (players == 1)
   {
@@ -42,6 +56,10 @@ void drawMenu()
   textSize(32);
   text("Who Goes First?", width / 2, (height / 3.2));
   drawSideSelect();
+  if (players < 2) // Decides difficulty for both zero player mode and single player mode
+  {
+    drawDifficultySelect();
+  }
 }
 
 void menuInput()
@@ -92,5 +110,17 @@ void menuInput()
     {
       startingSide = 'O';
     }
+  }
+  if (difficultySelectEasy)
+  {
+    selectedDifficulty = 0;
+  }
+  if (difficultySelectMedium)
+  {
+    selectedDifficulty = 1;
+  }
+  if (difficultySelectImpossible)
+  {
+    selectedDifficulty = 2;
   }
 }
