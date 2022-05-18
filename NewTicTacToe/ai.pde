@@ -4,7 +4,7 @@ int selectedDifficulty = 2; // 0 is Easy (random), 1 is Medium, 2 is Impossible
 int minimax(int depth, boolean maximizing)
 {
   char score = getWinner();
-  if (depth == 0 || score != 0)
+  if (score != 0)
   {
     if (score == 'T') return 0;
     if (score == aiSide) return 10; 
@@ -17,7 +17,7 @@ int minimax(int depth, boolean maximizing)
     for (int[] i : getEmptyPlaces())
     {
       board[i[0]][i[1]] = aiSide;
-      int value = minimax(depth - 1, false);
+      int value = minimax(depth + 1, false);
       board[i[0]][i[1]] = 0;
       if (value > bestValue) bestValue = value;
     }
