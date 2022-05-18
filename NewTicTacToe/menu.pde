@@ -78,6 +78,7 @@ void menuInput()
     playerSide = 'X';
     aiSide = 'O';
     players = 2;
+    selectedDifficulty = 2; // Resets AI to impossible difficulty
   }
   if (startGameButton)
   {
