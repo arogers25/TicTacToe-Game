@@ -1,7 +1,7 @@
 int delayTimer = 0;
 int selectedDifficulty = 2; // 0 is Easy (random), 1 is Medium, 2 is Impossible
 
-int minimax(int depth, boolean maximizing)
+int minimax(int depth, int alpha, int beta, boolean maximizing)
 {
   char score = getWinner();
   if (score != 0)
@@ -17,9 +17,11 @@ int minimax(int depth, boolean maximizing)
     for (int[] i : getEmptyPlaces())
     {
       board[i[0]][i[1]] = aiSide;
-      int value = minimax(depth + 1, false);
+      int value = minimax(depth + 1, alpha, beta, false);
       board[i[0]][i[1]] = 0;
       if (value > bestValue) bestValue = value;
+      if (value > alpha) alpha = value;
+      if (beta <= alpha) break;
     }
     return bestValue;
   } 
@@ -29,9 +31,11 @@ int minimax(int depth, boolean maximizing)
     for (int[] i : getEmptyPlaces())
     {
       board[i[0]][i[1]] = playerSide;
-      int value = minimax(depth - 1, true);
+      int value = minimax(depth + 1, alpha, beta, true);
       board[i[0]][i[1]] = 0;
       if (value < bestValue) bestValue = value;
+      if (value < beta) beta = value;
+      if (beta <= alpha) break;
     }
     return bestValue;
   }
@@ -45,7 +49,7 @@ int[] getBestPlace(int difficulty) // Get the best place on the board
   for (int[] i : emptyPlaces)
   {
     board[i[0]][i[1]] = aiSide; // Initial move
-    int value = minimax(0, false);
+    int value = minimax(0, -99999, 99999, false);
     board[i[0]][i[1]] = 0;
     if (value > bestValue)
     {
