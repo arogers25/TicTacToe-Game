@@ -1,75 +1,62 @@
-int gridAmount = 3; // How many squares the play grid has
-int gridPosX = 150, gridPosY = 150; // Set both to 0 for fullscreen
-int grid[][]; // The array of the game pieces
+float pieceSize, lineGap;
+float boardX, boardY, boardWidth;
 
-int getRowWinner()
+void setupBoard(float x, float y, float w)
 {
-  for (int y = 0; y < gridAmount; y++)
-  {
-    int winnerX = -1;
-    for (int x = 0; x < gridAmount; x++)
-    {
-      if (grid[0][y] != grid[x][y] || grid[x][y] == 0)
-      {
-        winnerX = -1; // If there is a move on the row that is not the same as every other or is empty, break the loop and go to the next Y
-        break;
-      }
-      winnerX = x;
-    }
-    if (winnerX != -1) // If this row has no empty pieces or only has 1 side with all the moves on it
-    {
-      return grid[0][y]; // Every piece on the row is the same if it is won so it doesn't matter what X the grid is returned at
-    }
-  }
-  return 0;
+  boardX = x;
+  boardY = y;
+  boardWidth = w;
+
+  board = new char[boardSize][boardSize];
+  pieceSize = w / (float)boardSize;
+  lineGap = pieceSize / 2;
+  currentSide = startingSide;
+  winner = 0;
+  movesMade = 0;
 }
 
-int getColumnWinner()
+void drawPiece(float x, float y, char piece, boolean onBoard)
 {
-  for (int x = 0; x < gridAmount; x++)
+  if (onBoard)
   {
-    int winnerY = -1;
-    for (int y = 0; y < gridAmount; y++)
+    x = (boardX + lineGap / 2) + (x * pieceSize);
+    y = (boardY + lineGap / 2) + (y * pieceSize);
+  }
+  switch (piece)
+  {
+  case 'X':
     {
-      if (grid[x][0] != grid[x][y] || grid[x][y] == 0)
-      {
-        winnerY = -1;
-        break;
-      }
-      winnerY = y;
+      stroke(255, 0, 0);
+      strokeWeight(9.0);
+      line(x, y, x + lineGap, y + lineGap);
+      line(x, y + lineGap, x + lineGap, y);
+      break;
     }
-    if (winnerY != -1)
+  case 'O':
     {
-      return grid[x][0];
+      stroke(0, 0, 255);
+      strokeWeight(9.0);
+      noFill();
+      circle(x + lineGap / 2, y + lineGap / 2, lineGap);
+      break;
     }
   }
-  return 0;
 }
 
-int getDiagWinners()
+void drawBoard()
 {
-  boolean diagWon = true;
-  boolean reverseDiagWon = true;
-  for (int i = 0; i < gridAmount; i++)
+  stroke(200);
+  strokeWeight(6.0);
+  for (int i = 1; i < boardSize; i++)
   {
-    if (grid[0][0] != grid[i][i]) 
+    line(boardX, boardY + (i * pieceSize), boardX + boardWidth, boardY + (i * pieceSize));
+    line(boardX + (i * pieceSize), boardY, boardX + (i * pieceSize), boardY + boardWidth);
+  }
+  for (int x = 0; x < boardSize; x++)
+  {
+    for (int y = 0; y < boardSize; y++)
     {
-      diagWon = false;
-    }
-    if (grid[0][gridAmount - 1] != grid[i][(gridAmount - 1) - i])
-    {
-      reverseDiagWon = false;
+      drawPiece(x, y, board[x][y], true);
     }
   }
-  if (diagWon) return grid[0][0];
-  if (reverseDiagWon) return grid[0][gridAmount - 1];
-  return 0; // Return 0 if there are no winners on the diagonal or reverse diagonal
-}
-
-void getWinner()
-{
-  if (getRowWinner() > 0) winner = getRowWinner();
-  if (getColumnWinner() > 0) winner = getColumnWinner();
-  if (getDiagWinners() > 0) winner = getDiagWinners();
-  if (movesPlayed == (gridAmount * gridAmount) && winner == 0) winner = 3; // If all of the moves have been played and there is no winner it is a tie
 }
