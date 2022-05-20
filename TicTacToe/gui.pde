@@ -60,6 +60,14 @@ void drawScore()
   }
 }
 
+void drawCurrentPiece()
+{
+  fill(winner == 0 ? 200 : 120);
+  noStroke();
+  rect((buttonWidth / 4) - 10, lineGap - 30, lineGap + 30, lineGap + 30);
+  drawPiece((buttonWidth / 4) + 5, lineGap - 15, currentSide, false);
+}
+
 void guiInput()
 {
   if (backToMenuButton)
@@ -95,6 +103,7 @@ void guiInput()
 void drawGui()
 {
   drawScore();
+  drawCurrentPiece();
 
   backToMenuButton = button("Back to Menu", width - buttonWidth - 10, buttonHeight + 20, buttonWidth, buttonHeight, color(210), color(175));
   resetScoreboardButton = button("Reset Score", 10, 10, buttonWidth, buttonHeight, color(210), color(175));
