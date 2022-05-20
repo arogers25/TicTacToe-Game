@@ -9,6 +9,10 @@ boolean difficultySelectEasy = false;
 boolean difficultySelectMedium = false;
 boolean difficultySelectImpossible = false;
 
+// Make arrow adjusters for board size and remove single player impossible mode if board is bigger than 4x4
+boolean board3x3 = false;
+boolean board4x4 = false;
+
 void drawDifficultySelect()
 {
   float buttonX = (width / 2) - buttonWidth - 10;
@@ -43,6 +47,15 @@ void drawSideSelect()
   }
 }
 
+void drawBoardSelect()
+{
+  textSize(21);
+  fill(0);
+  text("Select Board Size", width / 2, height / 5);
+  board3x3 = button("3x3 Board", (width / 2) - buttonWidth - 10, height / 4.4, buttonWidth, buttonHeight, boardSize == 3 ? color(150) : color(210), color(175));
+  board4x4 = button("4x4 Board", (width / 2) + 10, height / 4.4, buttonWidth, buttonHeight, boardSize == 4 ? color(150) : color(210), color(175));
+}
+
 void drawMenu()
 {
   fill(0);
@@ -52,12 +65,16 @@ void drawMenu()
   multiPlayerButton = button("2 Player Mode", (width / 2) + 10, (height / 1.5) - (buttonWidth / 2), buttonWidth, buttonHeight, players == 2 ? color(150) : color(210), color(175));
   startGameButton = button("Play", (width / 2) - buttonHeight, (height / 1.5) - (buttonHeight / 2), buttonWidth / 2, buttonHeight, color(0, 200, 0), color(50, 170, 50));
 
+  drawBoardSelect();
   fill(0);
   textSize(32);
-  text("Who Goes First?", width / 2, (height / 3.2));
+  text("Who Goes First?", width / 2, height / 3.2);
   drawSideSelect();
   if (players < 2) // Decides difficulty for both zero player mode and single player mode
   {
+    textSize(16);
+    fill(0);
+    text("AI Difficulty", width / 2, height / 2.15);
     drawDifficultySelect();
   }
 }
@@ -123,5 +140,13 @@ void menuInput()
   if (difficultySelectImpossible)
   {
     selectedDifficulty = 2;
+  }
+  if (board3x3)
+  {
+    boardSize = 3;
+  }
+  if (board4x4)
+  {
+    boardSize = 4;
   }
 }
