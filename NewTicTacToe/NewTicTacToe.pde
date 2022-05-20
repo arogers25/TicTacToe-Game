@@ -1,12 +1,11 @@
 char board[][];
-int boardSize = 3;
+int boardSize = 3; // Keep at 3 or 4 for now
 char playerSide = 'X';
 char aiSide = 'O';
 char startingSide = playerSide;
 char winner = 0;
 PFont mainFont;
 int state = 0; // 0 is for menu, 1 is for in game
-// These can be moved later
 
 void setup()
 {

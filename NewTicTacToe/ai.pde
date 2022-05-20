@@ -4,7 +4,7 @@ int selectedDifficulty = 2; // 0 is Easy (random), 1 is Medium, 2 is Impossible
 int minimax(int depth, int alpha, int beta, boolean maximizing)
 {
   char score = getWinner();
-  if (score != 0)
+  if (depth == 0 || score != 0)
   {
     if (score == 'T') return 0;
     if (score == aiSide) return 10; 
@@ -17,7 +17,7 @@ int minimax(int depth, int alpha, int beta, boolean maximizing)
     for (int[] i : getEmptyPlaces())
     {
       board[i[0]][i[1]] = aiSide;
-      int value = minimax(depth + 1, alpha, beta, false);
+      int value = minimax(depth - 1, alpha, beta, false);
       board[i[0]][i[1]] = 0;
       if (value > bestValue) bestValue = value;
       if (value > alpha) alpha = value;
@@ -31,7 +31,7 @@ int minimax(int depth, int alpha, int beta, boolean maximizing)
     for (int[] i : getEmptyPlaces())
     {
       board[i[0]][i[1]] = playerSide;
-      int value = minimax(depth + 1, alpha, beta, true);
+      int value = minimax(depth - 1, alpha, beta, true);
       board[i[0]][i[1]] = 0;
       if (value < bestValue) bestValue = value;
       if (value < beta) beta = value;
@@ -49,7 +49,7 @@ int[] getBestPlace(int difficulty) // Get the best place on the board
   for (int[] i : emptyPlaces)
   {
     board[i[0]][i[1]] = aiSide; // Initial move
-    int value = minimax(0, -99999, 99999, false);
+    int value = minimax(10, -99999, 99999, false); // Initial depth should be above 9 for a board bigger than 3x3 but depth and board size affect speed
     board[i[0]][i[1]] = 0;
     if (value > bestValue)
     {
