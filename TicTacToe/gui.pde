@@ -64,8 +64,8 @@ void drawCurrentPiece()
 {
   fill(winner == 0 ? 200 : 120);
   noStroke();
-  rect((buttonWidth / 4) - 10, lineGap - 30, lineGap + 30, lineGap + 30);
-  drawPiece((buttonWidth / 4) + 5, lineGap - 15, currentSide, false);
+  rect((buttonWidth / 4) - 10, lineGap - 10, lineGap + 30, lineGap + 30);
+  drawPiece((buttonWidth / 4) + 5, lineGap + 5, currentSide, false);
 }
 
 void guiInput()
