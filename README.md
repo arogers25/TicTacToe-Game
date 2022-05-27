@@ -11,7 +11,11 @@ It returns +10 if the move gives the AI a win, -10 if the player gets a win, and
 Alpha-beta pruning is used to speed up the algorithm by ending the check if the score is worse than one that was already checked.
 
 Resources that helped me implement minimax were:
+
 https://www.youtube.com/watch?v=l-hh51ncgDI
+
 https://www.youtube.com/watch?v=trKjYdBASyQ
+
 https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/
+
 https://en.wikipedia.org/wiki/Minimax
